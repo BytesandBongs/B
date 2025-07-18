@@ -1,6 +1,7 @@
 # Documentation
 - [Server customization guide](custom_server.md)
 - [Developer setup guide](development_setup.md)
+- [Trader Manager](feature/trader/trader_manager.md)
 
 # Dependencies
 - `EnfusionPersistenceFramework` [[Workshop](https://reforger.armaplatform.com/workshop/5D6EBC81EB1842EF)] - [[GitHub](https://github.com/Arkensor/EnfusionPersistenceFramework)] 

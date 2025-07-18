@@ -20,19 +20,22 @@ modded class SCR_InventoryStorageManagerComponent
 					cb.InvokeOnFailed();
 					return;
 				}
-				// spawn and insert ItemToGive into inventory
-				EntitySpawnParams spawnParams();
-        		spawnParams.Transform[3] = GetOwner().GetOrigin(); // Source origin	
-				auto barterItem = GetGame().SpawnEntityPrefabEx(trader.m_ItemToGive, false, null, spawnParams);
-				bool insertSuccess = TryInsertItemInStorage(barterItem, pStorageFrom);
-				if (!insertSuccess)
-				{
-					TryInsertItemInStorage(GetGame().SpawnEntityPrefabEx(trader.m_ItemToReceive, false), pStorageFrom);
-					return;
-				}
-				this.SetReturnCode(EInventoryRetCode.RETCODE_OK);
-				cb.InvokeOnComplete();
-				return;
+                                // spawn and insert ItemToGive into inventory
+                                EntitySpawnParams spawnParams();
+                                spawnParams.Transform[3] = GetOwner().GetOrigin(); // Source origin
+                                for (int i = 0; i < trader.m_GiveAmount; i++)
+                                {
+                                        auto barterItem = GetGame().SpawnEntityPrefabEx(trader.m_ItemToGive, false, null, spawnParams);
+                                        bool insertSuccess = TryInsertItemInStorage(barterItem, pStorageFrom);
+                                        if (!insertSuccess)
+                                        {
+                                                TryInsertItemInStorage(GetGame().SpawnEntityPrefabEx(trader.m_ItemToReceive, false), pStorageFrom);
+                                                return;
+                                        }
+                                }
+                                this.SetReturnCode(EInventoryRetCode.RETCODE_OK);
+                                cb.InvokeOnComplete();
+                                return;
 			}
 		}
 		super.InsertItem(pItem, pStorageTo, pStorageFrom, cb);
